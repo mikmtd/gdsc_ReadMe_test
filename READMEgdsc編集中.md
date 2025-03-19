@@ -4,11 +4,9 @@ The Genomics of Drug Sensitivity in Cancer (GDSC) database is a large-scale reso
 
 ## GDSC Conversion with RDF-config
 
-### gdsc_RDF config (senbero)
+### RDF config (senbero)
 
 RDF-config is a tool to generate SPARQL queries, a schema diagram, and files required for [Grasp](https://github.com/dbcls/grasp), [TogoStanza](http://togostanza.org/) and ShEx validator from the simple YAML-based configuration files (see the [specification](./doc/spec.md)).
-
-![](assets/senbero-logo.png)
 
 ### SPECIFICATION
 
@@ -23,6 +21,48 @@ RDF-config is a tool to generate SPARQL queries, a schema diagram, and files req
 % git clone https://github.com/dbcls/rdf-config.git
 % cd rdf-config
 % bundle install
+```
+
+## Generate RDF or JSON-LD
+
+### Data set for conversion
+
+- convert.yaml
+- model.yaml
+- prefix.yaml
+- endpoint.yaml
+- schema.yaml
+- sparql.yaml
+- stanza.yaml
+
+### Edit convert.yaml
+
+Define rules (procedures) for generating RDF and JSON-LD from CSV and TSV files, and describe them in YAML format.
+
+Tips
+- The top-level key (e.g., Gdsc) should be defined as a list item by adding a '-'.
+- Indentation should be done with exactly 2 half-width spaces.
+- Include - subject and - objects.
+- Confirm the path for - source. 
+
+![convert.yaml](./doc/figure/convert.yaml.png)
+
+
+To generate RDF or JSON-LD from CSV, XML, or JSON files, run rdf-config with the --convert option.
+
+```
+% rdf-config --config [directory of the configuration file] --convert [--format output format]
+```
+
+To generate Turtle
+```
+% bundle exec rdf-config --config config/gdsc --convert --format turtle > config/gdsc/output.ttl
+```
+
+To generate JSON-LD
+
+```
+% bundle exec rdf-config --config config/gdsc --convert --format json-ld > config/gdsc/output.json
 ```
 
 ### Generate schema ascii art
@@ -98,25 +138,5 @@ GdscCellLine [gdscc:GdscCellLine] (gdscc:1)
 
 [![tcga schema](./doc/figure/gdsc.svg)](./doc/figure/gdsc.svg)
 
-### convert.yaml
-![convert.yaml](./doc/figure/convert.yaml.png)
 
-### Generate RDF or JSON-LD
-
-To generate RDF or JSON-LD from CSV, XML, or JSON files, run rdf-config with the --convert option.
-
-```
-% rdf-config --config [directory of the configuration file] --convert [--format output format]
-```
-
-To generate Turtle
-```
-% bundle exec rdf-config --config config/gdsc --convert --format turtle > config/gdsc/output.ttl
-```
-
-To generate JSON-LD
-
-```
-% bundle exec rdf-config --config config/gdsc --convert --format json-ld > config/gdsc/output.json
-```
 
