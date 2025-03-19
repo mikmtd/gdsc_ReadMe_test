@@ -2,7 +2,7 @@
 
 The Genomics of Drug Sensitivity in Cancer (GDSC) database is a large-scale resource that compiles genetic and pharmacological information regarding drug sensitivity in cancer cell lines.
 
-## GDSC Conversion with RDF-config
+## gdsc Conversion with RDF-config
 
 ### RDF config (senbero)
 
@@ -135,8 +135,4 @@ GdscCellLine [gdscc:GdscCellLine] (gdscc:1)
 ```
 % bundle exec rdf-config --config config/gdsc --schema > gdsc.svg
 ```
-
-[![tcga schema](./doc/figure/gdsc.svg)](./doc/figure/gdsc.svg)
-
-
-
+[gdsc schema](./doc/figure/gdsc.svg)
