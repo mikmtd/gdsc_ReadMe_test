@@ -1,0 +1,31 @@
+# macOS 特有の隠しファイル
+.DS_Store
+doc/.DS_Store
+doc/figure/.DS_Store
+
+# Python 一時ファイル
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# 環境構築や一時ファイル
+.env
+*.log
+*.tmp
+*.swp
+
+# Jupyter のチェックポイント（今後追加された時のために）
+.ipynb_checkpoints/
+
+# VSCode や他エディタの設定
+.vscode/
+.idea/
+
+# 仮想環境ディレクトリ
+venv/
+.venv/
+
+# Git マージや競合の一時ファイル
+*.orig
+
