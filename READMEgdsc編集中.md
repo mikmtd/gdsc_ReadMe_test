@@ -23,6 +23,30 @@ RDF-config is a tool to generate SPARQL queries, a schema diagram, and files req
 % bundle install
 ```
 
+## Get Dataset
+
+https://www.cancerrxgene.org/downloads/bulk_download
+
+```
+% cd config/gdsc
+% python3 ./scripts/gdsc_download_convert.py
+```
+
+Check raw files and tsv files in directory.
+
+├── data
+│   ├── raw
+│   │   ├── Cell_Lines_Details.xlsx
+│   │   ├── GDSC2_fitted_dose_response_27Oct23.xlsx
+│   │   ├── model_list_20240110.csv
+│   │   └── screened_compounds_rel_8.5.csv
+│   └── tsv
+│       ├── Cell_Lines_Details.tsv
+│       ├── GDSC2.tsv
+│       ├── model_list_20240110.tsv
+│       └── screened_compounds_rel_8.5.tsv
+
+
 ## Generate RDF or JSON-LD
 
 ### Data set for conversion
