@@ -34,6 +34,7 @@ https://www.cancerrxgene.org/downloads/bulk_download
 
 Check raw files and tsv files in directory.
 
+```
 ├── data
 │   ├── raw
 │   │   ├── Cell_Lines_Details.xlsx
@@ -45,7 +46,7 @@ Check raw files and tsv files in directory.
 │       ├── GDSC2.tsv
 │       ├── model_list_20240110.tsv
 │       └── screened_compounds_rel_8.5.tsv
-
+```
 
 ## Generate RDF or JSON-LD
 
