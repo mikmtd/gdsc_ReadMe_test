@@ -25,7 +25,9 @@ RDF-config is a tool to generate SPARQL queries, a schema diagram, and files req
 
 ## Get Dataset
 
-https://www.cancerrxgene.org/downloads/bulk_download
+Download data from the following web site.
+
+[Genomics of Drug Sensitivity in Cancer](https://www.cancerrxgene.org/downloads/bulk_download)
 
 ```
 % cd config/gdsc
