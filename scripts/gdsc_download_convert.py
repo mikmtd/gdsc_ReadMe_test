@@ -2,9 +2,13 @@ import os
 import pandas as pd
 import requests
 
-# 保存先フォルダ
-save_dir = "./data"
-os.makedirs(save_dir, exist_ok=True)
+# 保存先フォルダの指定
+raw_dir = "data/raw"
+tsv_dir = "data/tsv"
+
+# フォルダがなければ作成
+os.makedirs(raw_dir, exist_ok=True)
+os.makedirs(tsv_dir, exist_ok=True)
 
 # ダウンロード情報
 files = [
@@ -36,8 +40,8 @@ files = [
 
 # ダウンロードと変換処理
 for f in files:
-    file_path = os.path.join(save_dir, f["filename"])
-    output_path = os.path.join(save_dir, f["output"])
+    file_path = os.path.join(raw_dir, f["filename"])
+    output_path = os.path.join(tsv_dir, f["output"])
 
     print(f"\n📥 ダウンロード中: {f['filename']}")
     res = requests.get(f["url"])
