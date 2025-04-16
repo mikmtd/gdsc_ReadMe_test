@@ -3,8 +3,8 @@ import pandas as pd
 import requests
 
 # 保存先フォルダの指定
-raw_dir = "data/raw"
-tsv_dir = "data/tsv"
+raw_dir = "config/gdsc/data/raw"
+tsv_dir = "config/gdsc/data/tsv"
 
 # フォルダがなければ作成
 os.makedirs(raw_dir, exist_ok=True)
