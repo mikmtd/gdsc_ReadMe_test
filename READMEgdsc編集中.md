@@ -29,6 +29,8 @@ Download data from the following web site.
 
 [Genomics of Drug Sensitivity in Cancer](https://www.cancerrxgene.org/downloads/bulk_download)
 
+![gdsc_DL.pdf](./doc/figure/gdsc_DL.pdf)
+
 ```
 % cd config/gdsc
 % python3 ./scripts/gdsc_download_convert.py
