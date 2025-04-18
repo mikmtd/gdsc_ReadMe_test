@@ -1,0 +1,389 @@
+- Gdsc:
+    - subject:
+    #  - source("GDSCx.tsv")
+        - source("./config/gdsc/data/tsv/GDSC1.tsv")
+
+    # _ID_
+        - tsv("NLME_CURVE_ID")
+        - prepend("gdsc:")
+
+    - objects:
+        - dataset:
+            - tsv("DATASET")
+        - nlme_result_id:
+            - tsv("NLME_RESULT_ID")
+            - to_int
+
+    # _ID_
+        - nlme_curve_id:
+            - tsv("NLME_CURVE_ID")
+            - prepend("gdsc:")
+
+    # _ID_
+        - cosmic_id:
+            - tsv("COSMIC_ID")
+            - prepend("gdscc:")
+
+        - cell_line_name:
+            - tsv("CELL_LINE_NAME")
+
+    # _ID_
+        - sanger_model_id:
+            - tsv("SANGER_MODEL_ID")
+            - prepend("gdscm:")
+
+    # _ID_
+        - tcga_desc:
+            - tsv("TCGA_DESC")
+            - prepend("TCGA-")
+            - prepend("tcgap:")
+
+    # _ID_
+        - drug_id:
+            - tsv("DRUG_ID")
+            - prepend("gdscd:")
+
+        - drug_name:
+            - tsv("DRUG_NAME")
+        - putative_target:
+            - tsv("PUTATIVE_TARGET")
+        - pathway_name:
+            - tsv("PATHWAY_NAME")
+        - company_id:
+            - tsv("COMPANY_ID")
+            - to_int
+        - webrelease:
+            - tsv("WEBRELEASE")
+        - min_conc:
+            - tsv("MIN_CONC")
+            - to_float
+        - max_conc:
+            - tsv("MAX_CONC")
+            - to_float
+            - to_int
+        - ln_ic50:
+            - tsv("LN_IC50")
+            - to_float
+        - auc:
+            - tsv("AUC")
+            - to_float
+        - rmse:
+            - tsv("RMSE")
+            - to_float
+        - z_score:
+            - tsv("Z_SCORE")
+            - to_float
+
+
+- GdscDrug:
+    - subject:
+    #  - source("screened_compounds_small.tsv")
+        - source("./config/gdsc/data/screened_compounds_small_new.tsv")
+
+    # _ID_
+        - tsv("drug_DRUG_ID")
+        - prepend("gdscd:")
+
+    - objects:
+    # _ID_
+        - drug_drug_id:
+            - tsv("drug_DRUG_ID")
+            - prepend("gdscd:")
+
+        - drug_screening_site:
+            - tsv("drug_SCREENING_SITE")
+        - drug_drug_name:
+            - tsv("drug_DRUG_NAME")
+
+        - drug_synonyms:
+            - tsv("drug_SYNONYMS")
+            - split(" ")
+
+        - drug_target:
+            - tsv("drug_TARGET")
+        - drug_target_pathway:
+            - tsv("drug_TARGET_PATHWAY")
+
+
+- GdscCellLine:
+    - subject:
+    #  - source("./config/gdsc/Cell_Lines.txt.2.tsv")
+        - source("./config/gdsc/data/Cell_Lines_small_new.tsv")
+
+    # _ID_
+        - tsv("cell_COSMIC identifier")
+        - prepend("gdscc:")
+
+    - objects:
+        - cell_sample_name:
+            - tsv("cell_Sample Name")
+
+    # _ID_
+        - cell_cosmic_identifier:
+            - tsv("cell_COSMIC identifier")
+            - prepend("gdscc:")
+
+        - cell_whole_exome_sequencing:
+            - tsv("cell_Whole Exome Sequencing (WES)")
+            - to_bool
+        - cell_copy_number_alterations:
+            - tsv("cell_Copy Number Alterations (CNA)")
+            - to_bool
+        - cell_gene_expression:
+            - tsv("cell_Gene Expression")
+            - to_bool
+        - cell_methylation:
+            - tsv("cell_Methylation")
+            - to_bool
+        - cell_drug_response:
+            - tsv("cell_Drug Response")
+            - to_bool
+        - cell_gdsc_tissue_descriptor_1:
+            - tsv("cell_GDSC Tissue descriptor 1")
+        - cell_gdsc_tissue_descriptor_2:
+            - tsv("cell_GDSC Tissue descriptor 2")
+
+    # _ID_
+        - cell_cancer_type:
+            - tsv("cell_Cancer Type (matching TCGA label)")
+            - split("/")
+            - prepend("TCGA-")
+            - prepend("tcgap:")
+
+        - cell_microsatellite_instability_status:
+            - tsv("cell_Microsatellite instability Status (MSI)")
+            - split("/")
+
+        - cell_screen_medium:
+            - tsv("cell_Screen Medium")
+        - cell_growth_properties:
+            - tsv("cell_Growth Properties")
+
+
+- GdscModel:
+    - subject:
+    #  - source("model_list_20240110.csv.2.tsv")
+        - source("./config/gdsc/data/model_list_small_new.tsv")
+
+    # _ID_
+        - tsv("mod_model_id")
+        - prepend("gdscm:")
+
+    - objects:
+    # _ID_
+        - mod_model_id:
+            - tsv("mod_model_id")
+            - prepend("gdscm:")
+
+        - mod_sample_id:
+            - tsv("mod_sample_id")
+        - mod_patient_id:
+            - tsv("mod_patient_id")
+        - mod_parent_id:
+            - tsv("mod_parent_id")
+        - mod_model_name:
+            - tsv("mod_model_name")
+        - mod_synonyms:
+            - tsv("mod_synonyms")
+        - mod_tissue:
+            - tsv("mod_tissue")
+        - mod_cancer_type:
+            - tsv("mod_cancer_type")
+        - mod_cancer_type_ncit_id:
+            - tsv("mod_cancer_type_ncit_id")
+        - mod_tissue_status:
+            - tsv("mod_tissue_status")
+        - mod_sample_site:
+            - tsv("mod_sample_site")
+        - mod_cancer_type_detail:
+            - tsv("mod_cancer_type_detail")
+        - mod_model_type:
+            - tsv("mod_model_type")
+        - mod_growth_properties:
+            - tsv("mod_growth_properties")
+        - mod_model_treatment:
+            - tsv("mod_model_treatment")
+
+        - mod_sampling_day:
+            - tsv("mod_sampling_day")
+            - to_float
+        - mod_sampling_month:
+            - tsv("mod_sampling_month")
+            - to_float
+        - mod_sampling_year:
+            - tsv("mod_sampling_year")
+            - to_float
+
+        - mod_doi:
+            - tsv("mod_doi")
+        - mod_pmed:
+            - tsv("mod_pmed")
+        - mod_msi_status:
+            - tsv("mod_msi_status")
+
+        - mod_ploidy_snp6:
+            - tsv("mod_ploidy_snp6")
+            - to_float 
+        - mod_ploidy_wes:
+            - tsv("mod_ploidy_wes")
+            - to_float
+        - mod_ploidy_wgs:
+            - tsv("mod_ploidy_wgs")
+            - to_float
+        - mod_mutational_burden:
+            - tsv("mod_mutational_burden")
+            - to_float
+
+        - mod_model_comments:
+            - tsv("mod_model_comments")
+        - mod_model_relations_comment:
+            - tsv("mod_model_relations_comment")
+
+    # _ID_
+        - mod_cosmic_id:
+            - tsv("mod_COSMIC_ID")
+            - prepend("gdscc:")
+
+        - mod_broad_id:
+            - tsv("mod_BROAD_ID")
+        - mod_ccle_id:
+            - tsv("mod_CCLE_ID")
+        - mod_rrid:
+            - tsv("mod_RRID")
+        - mod_hcmi:
+            - tsv("mod_HCMI")
+        - mod_suppliers:
+            - tsv("mod_suppliers")
+        - mod_supplier:
+            - tsv("mod_supplier")
+        - mod_cat_number:
+            - tsv("mod_cat_number")
+        - mod_species:
+            - tsv("mod_species")
+        - mod_gender:
+            - tsv("mod_gender")
+        - mod_ethnicity:
+            - tsv("mod_ethnicity")
+        - mod_age_at_sampling:
+            - tsv("mod_age_at_sampling")
+        - mod_family_history_of_cancer:
+            - tsv("mod_family_history_of_cancer")
+        - mod_prior_same_malignancy:
+            - tsv("mod_prior_same_malignancy")
+        - mod_prior_other_malignancy:
+            - tsv("mod_prior_other_malignancy")
+        - mod_smoking_status:
+            - tsv("mod_smoking_status")
+        - mod_alcohol_exposure_intensity:
+            - tsv("mod_alcohol_exposure_intensity")
+        - mod_alcohol_consumption_per_week:
+            - tsv("mod_alcohol_consumption_per_week")
+        - mod_history_diabetes:
+            - tsv("mod_history_diabetes")
+        - mod_diabetes_treatment:
+            - tsv("mod_diabetes_treatment")
+        - mod_colorectal_cancer_risk_factors:
+            - tsv("mod_colorectal_cancer_risk_factors")
+        - mod_patient_history_of_gastrointestinal_disorder:
+            - tsv("mod_patient_history_of_gastrointestinal_disorder")
+        - mod_gastrointestinal_disorder_diagnosed:
+            - tsv("mod_gastrointestinal_disorder_diagnosed")
+        - mod_prior_synchronous_colon_rectal_tumours:
+            - tsv("mod_prior_synchronous_colon_rectal_tumours")
+        - mod_history_prior_colon_polyps:
+            - tsv("mod_history_prior_colon_polyps")
+        - mod_previous_current_barretts_oesophagus:
+            - tsv("mod_previous_current_barretts_oesophagus")
+        - mod_reflux_disease_prior:
+            - tsv("mod_reflux_disease_prior")
+        - mod_reflux_disease_treatment:
+            - tsv("mod_reflux_disease_treatment")
+        - mod_h_pylori_infection:
+            - tsv("mod_h_pylori_infection")
+        - mod_history_clinical_chronic_pancreatitis:
+            - tsv("mod_history_clinical_chronic_pancreatitis")
+        - mod_tumour_grade:
+            - tsv("mod_tumour_grade")
+        - mod_tnm_integrated:
+            - tsv("mod_tnm_integrated")
+        - mod_tnm_t:
+            - tsv("mod_tnm_t")
+        - mod_tnm_n:
+            - tsv("mod_tnm_n")
+        - mod_tnm_m:
+            - tsv("mod_tnm_m")
+        - mod_clinical_staging:
+            - tsv("mod_clinical_staging")
+        - mod_metastasis_at_diagnosis:
+            - tsv("mod_metastasis_at_diagnosis")
+        - mod_metastatic_site_at_diagnosis:
+            - tsv("mod_metastatic_site_at_diagnosis")
+        - mod_method_procurement:
+            - tsv("mod_method_procurement")
+        - mod_sample_treatment:
+            - tsv("mod_sample_treatment")
+        - mod_sample_treatment_details:
+            - tsv("mod_sample_treatment_details")
+        - mod_radiation_type:
+            - tsv("mod_radiation_type")
+        - mod_prior_therapy_outcome:
+            - tsv("mod_prior_therapy_outcome")
+        - mod_tumour_regression_score:
+            - tsv("mod_tumour_regression_score")
+        - mod_colon_polyps_present_at_time_of_tissue_collection:
+            - tsv("mod_colon_polyps_present_at_time_of_tissue_collection")
+        - mod_venous_invasion_present:
+            - tsv("mod_venous_invasion_present")
+        - mod_venous_invasion_type:
+            - tsv("mod_venous_invasion_type")
+        - mod_lymphatic_invasion_present:
+            - tsv("mod_lymphatic_invasion_present")
+        - mod_perineural_invasion_present:
+            - tsv("mod_perineural_invasion_present")
+        - mod_gastric_oesophageal_junction:
+            - tsv("mod_gastric_oesophageal_junction")
+        - mod_barretts_goblet_cells_present:
+            - tsv("mod_barretts_goblet_cells_present")
+        - mod_oesophageal_columnar_metaplasia:
+            - tsv("mod_oesophageal_columnar_metaplasia")
+        - mod_goblet_cells_oesophageal_columnar_mucosa:
+            - tsv("mod_goblet_cells_oesophageal_columnar_mucosa")
+        - mod_degree_of_dysplasia_non_cancerous_oesophageal_columnar_mucosa:
+            - tsv("mod_degree_of_dysplasia_non_cancerous_oesophageal_columnar_mucosa")
+        - mod_peripancreatic_lymph_nodes_tested_surgery:
+            - tsv("mod_peripancreatic_lymph_nodes_tested_surgery")
+        - mod_number_positive_peripancreatic_lymph_nodes:
+            - tsv("mod_number_positive_peripancreatic_lymph_nodes")
+        - mod_mlh1_expression_by_ihc:
+            - tsv("mod_mlh1_expression_by_ihc")
+        - mod_mlh1_promoter_methylation_status:
+            - tsv("mod_mlh1_promoter_methylation_status")
+        - mod_msh2_expression_by_ihc:
+            - tsv("mod_msh2_expression_by_ihc")
+        - mod_pms2_expression_by_ihc:
+            - tsv("mod_pms2_expression_by_ihc")
+        - mod_msh6_expression_by_ihc:
+            - tsv("mod_msh6_expression_by_ihc")
+        - mod_braf_mutation_identified:
+            - tsv("mod_braf_mutation_identified")
+        - mod_braf_expression_by_ihc:
+            - tsv("mod_braf_expression_by_ihc")
+        - mod_pik3ca_mutation_identified:
+            - tsv("mod_pik3ca_mutation_identified")
+        - mod_pten_expression_by_ihc:
+            - tsv("mod_pten_expression_by_ihc")
+        - mod_pten_mutation_identified:
+            - tsv("mod_pten_mutation_identified")
+        - mod_kras_mutation_identified:
+            - tsv("mod_kras_mutation_identified")
+        - mod_mismatch_repair_status:
+            - tsv("mod_mismatch_repair_status")
+
+        - mod_preoperative_ce_alevel:
+            - tsv("mod_preoperative_ce_alevel")
+            - to_float
+
+        - mod_crispr_ko_data:
+            - tsv("mod_crispr_ko_data")
+
+

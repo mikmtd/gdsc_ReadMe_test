@@ -1,6 +1,7 @@
 import os
 import pandas as pd
 import requests
+import re
 
 # 保存先フォルダの指定
 raw_dir = "config/gdsc/data/raw"
@@ -12,6 +13,12 @@ os.makedirs(tsv_dir, exist_ok=True)
 
 # ダウンロード情報
 files = [
+    {
+        "url": "https://cog.sanger.ac.uk/cancerrxgene/GDSC_release8.5/GDSC1_fitted_dose_response_27Oct23.xlsx",
+        "filename": "GDSC1_fitted_dose_response_27Oct23.xlsx",
+        "output": "GDSC1.tsv",
+        "prefix": None
+    },
     {
         "url": "https://cog.sanger.ac.uk/cancerrxgene/GDSC_release8.5/GDSC2_fitted_dose_response_27Oct23.xlsx",
         "filename": "GDSC2_fitted_dose_response_27Oct23.xlsx",
@@ -52,16 +59,22 @@ for f in files:
         file.write(res.content)
     print(f"✅ ダウンロード完了: {file_path}")
 
-    # 読み込み
+    # 読み込み&na_values=[] → "None" や "NA" を NaN に変換しない
     print(f"📊 データ処理中: {f['filename']}")
     if f["filename"].endswith(".xlsx"):
         df = pd.read_excel(file_path)
     else:
-        df = pd.read_csv(file_path)
+        df = pd.read_csv(file_path, na_values=[], keep_default_na=False)
 
-    # カラム名に接頭辞を追加（指定がある場合）
+    # カラム名の整形（改行除去 + 接頭辞）
+    clean_columns = [re.sub(r'\s+', ' ', str(col)).strip() for col in df.columns]
     if f["prefix"]:
-        df.columns = [f["prefix"] + str(col) for col in df.columns]
+        df.columns = [f["prefix"] + col for col in clean_columns]
+    else:
+        df.columns = clean_columns
+
+    # セルの中身も空白を除去（前後）
+    df = df.apply(lambda x: x.str.strip() if x.dtype == "object" else x)
 
     # TSV形式で保存
     df.to_csv(output_path, sep="\t", index=False)
