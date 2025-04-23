@@ -73,6 +73,21 @@ for f in files:
     else:
         df.columns = clean_columns
 
+    # 特定ファイルに対するID列の変換（.0除去）
+    if f["output"] == "Cell_Lines_Details.tsv":
+        col_name = "cell_COSMIC identifier"
+        if col_name in df.columns:
+            df[col_name] = df[col_name].apply(
+                lambda x: str(int(x)) if isinstance(x, float) and x.is_integer() else str(x)
+            )
+
+    elif f["output"] in ["GDSC1.tsv", "GDSC2.tsv"]:
+        col_name = "MAX_CONC"
+        if col_name in df.columns:
+            df[col_name] = df[col_name].apply(
+                lambda x: str(int(x)) if isinstance(x, float) and x.is_integer() else str(x)
+            )
+
     # セルの中身も空白を除去（前後）
     df = df.apply(lambda x: x.str.strip() if x.dtype == "object" else x)
 
