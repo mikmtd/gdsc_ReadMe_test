@@ -1,7 +1,7 @@
 - Gdsc:
     - subject:
     #  - source("GDSCx.tsv")
-        - source("./config/gdsc/data/tsv/GDSC1.tsv")
+        - source("./config/gdsc/data/tsv/GDSCx_new.tsv")
         #- source("./config/gdsc/data/GDSC1_small_new.tsv")
 
     # _ID_
