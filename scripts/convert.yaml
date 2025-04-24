@@ -1,8 +1,8 @@
 - Gdsc:
     - subject:
     #  - source("GDSCx.tsv")
-        #- source("./config/gdsc/data/tsv/screened_compounds_rel_8.5.tsv")
-        - source("./config/gdsc/data/GDSC1_small_new.tsv")
+        - source("./config/gdsc/data/tsv/GDSC1.tsv")
+        #- source("./config/gdsc/data/GDSC1_small_new.tsv")
 
     # _ID_
         - tsv("NLME_CURVE_ID")
@@ -78,8 +78,8 @@
 - GdscDrug:
     - subject:
     #  - source("screened_compounds_small.tsv")
-        #- source("./config/gdsc/data/tsv/screened_compounds_rel_8.5.tsv")
-        - source("./config/gdsc/data/screened_compounds_small_new.tsv")
+        - source("./config/gdsc/data/tsv/screened_compounds_rel_8.5.tsv")
+        #- source("./config/gdsc/data/screened_compounds_small_new.tsv")
 
     # _ID_
         - tsv("drug_DRUG_ID")
@@ -109,8 +109,8 @@
 - GdscCellLine:
     - subject:
     #  - source("./config/gdsc/Cell_Lines.txt.2.tsv")
-        #- source("./config/gdsc/data/tsv/Cell_Lines_Details.tsv")
-        - source("./config/gdsc/data/Cell_Lines_small_new.tsv")
+        - source("./config/gdsc/data/tsv/Cell_Lines_Details.tsv")
+        #- source("./config/gdsc/data/Cell_Lines_small_new.tsv")
 
     # _ID_
         - tsv("cell_COSMIC identifier")
@@ -165,8 +165,8 @@
 - GdscModel:
     - subject:
     #  - source("model_list_20240110.csv.2.tsv")
-        #- source("./config/gdsc/data/tsv/model_list_20240110.tsv")
-        - source("./config/gdsc/data/model_list_small_new.tsv")
+        - source("./config/gdsc/data/tsv/model_list_20240110.tsv")
+        #- source("./config/gdsc/data/model_list_small_new.tsv")
 
     # _ID_
         - tsv("mod_model_id")
