@@ -2,11 +2,12 @@
 
 # GDSC
 
-The Genomics of Drug Sensitivity in Cancer (GDSC) is a large-scale public database that provides pharmacogenomic data, including drug response profiles and genomic features, across various human cancer cell lines.
+The **Genomics of Drug Sensitivity in Cancer (GDSC)** is a large-scale public database that provides pharmacogenomic data, including drug response profiles and genomic features, across various human cancer cell lines.
 
 ## RDF Conversion with RDF-config
 
-Install **rdf-config** to convert GDSC data into RDF (Turtle) or JSON-LD.Download the data separately.
+Install **rdf-config** to convert GDSC data into RDF (Turtle) or JSON-LD.
+Download the data separately.
 
 ### About RDF-config (senbero)
 
@@ -35,7 +36,7 @@ cd rdf-config
 bundle install
 ```
 
-## Download GDSC Dataset
+## Download GDSC Datasets
 
 Datasets can be downloaded from the following website:
 
@@ -43,17 +44,23 @@ Datasets can be downloaded from the following website:
 
 ![gdsc_DL.png](./doc/figure/gdsc_DL.png)
 
-⚠️Save all `.tsv` files into: rdf-config/config/gdsc.
+⚠️Save all `.tsv` files into: `rdf-config/config/gdsc`.
 
-### Automatic Download 
+### Automatic Download and TSV Conversion
 
-You can automatically download GDSC data using the following script:
+To automate dataset download and TSV conversion, use the provided Python script:
 
 ```
 python3 ./config/gdsc/scripts/gdsc_download_convert.py
 ```
 
-Check raw files and tsv files in directory.
+This script:
+
+    - Downloads necessary raw files (Excel/CSV)
+
+    - Converts them into standardized .tsv files for RDF transformation
+
+#### Directory structure after execution:
 
 ```
 └── config
@@ -73,7 +80,7 @@ Check raw files and tsv files in directory.
             └── gdsc_download_convert.py
 ```
 
-## Convert to RDF / JSON-LD
+## Convert TSV to RDF or JSON-LD
 
 ### Required Config Files
 
@@ -88,9 +95,10 @@ Ensure the following files exist in config/gdsc/:
 
 ### RDF/JSON-LD Conversion Commands
 
-💡 Note: Run from the root directory of rdf-config.
+📌 Run the following commands from the root directory of rdf-config.
 
 Convert TSV to Turtle:
+
 ```
 bundle exec rdf-config --config config/gdsc --convert --format turtle > config/gdsc/output.ttl
 ```
@@ -108,6 +116,8 @@ bundle exec rdf-config --config config/gdsc --convert --format json-ld > config/
 ```
 bundle exec rdf-config --config config/gdsc --senbero
 ```
+
+#### Example output:
 
 ```
 Gdsc [gdsc:Gdsc] (gdsc:1)
@@ -139,18 +149,16 @@ bundle exec rdf-config --config config/gdsc --schema > gdsc.svg
 
 ### Tips for Writing convert.yaml
 
-- Always use a hyphen `-` before **top-level** entities (e.g., `- TcgaFiles:`)
+- Always use a hyphen `-` before **top-level** entities (e.g., `- drug_id:`)
 - Use 2 spaces (not tabs) for indentation
-- Define - subject: and - objects: under each entity
-- Ensure source: matches the TSV file field name
+- Define `- subject:` and `- objects:` under each entity
+- Ensure `source:` matches the TSV file field name
 
 ![convert.yaml](./doc/figure/convert.yaml.png)
 
-### Script for Creating Small Test Data
+### Generate Sample Data for Testing
 
-This command generates a small sample dataset for testing RDF conversion workflows. 
-
-💡 Run the following commands in your working directory (e.g., ~/rdf-config/):
+You can create a small subset of the TSV data to test RDF conversion using:
 
 ```
 python3 ./config/gdsc/scripts/gdscgdsc_small_extract_rows_from_tsv.py
