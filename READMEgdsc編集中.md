@@ -1,43 +1,52 @@
-# gdsc
+# GDSC RDF Conversion Guide
 
-The Genomics of Drug Sensitivity in Cancer (GDSC) database is a large-scale resource that compiles genetic and pharmacological information regarding drug sensitivity in cancer cell lines.
+# GDSC
 
-## gdsc Conversion with RDF-config
+The Genomics of Drug Sensitivity in Cancer (GDSC) is a large-scale public database that provides pharmacogenomic data, including drug response profiles and genomic features, across various human cancer cell lines.
 
-### RDF Config (senbero)
+## RDF Conversion with RDF-config
 
-RDF-config is a tool to generate SPARQL queries, a schema diagram, and files required for [Grasp](https://github.com/dbcls/grasp), [TogoStanza](http://togostanza.org/) and ShEx validator from the simple YAML-based configuration files (see the [specification](./doc/spec.md)).
+Install **rdf-config** to convert GDSC data into RDF (Turtle) or JSON-LD.Download the data separately.
 
-### Specification
+### About RDF-config (senbero)
 
-* [English version](./doc/spec.md)
-* [Japanese version](./doc/spec_ja.md)
+[RDF-config](https://github.com/dbcls/rdf-config) is a tool that generates
 
-## Usage
+- SPARQL queries
+-  Schema diagrams (ASCII / SVG)
+- Configuration files for:
+    - [Grasp](https://github.com/dbcls/grasp)
+    - [TogoStanza](http://togostanza.org/)
+    - [ShEx Validator](https://shex.io/) 
 
-This section describes how to install `rdf-config`, download GDSC datasets, and convert them into RDF or JSON-LD format.
+These are generated from **simple YAML configuration files**.
 
-### Installation
+📘 For YAML syntax and configuration rules, see the RDF-config Specification:
+
+[English](https://github.com/dbcls/rdf-config/blob/master/doc/spec.md) | [Japanese](https://github.com/dbcls/rdf-config/blob/master/doc/spec_ja.md)
+
+### Installation of rdf-config
+
+💡 Run the following commands in your working directory (e.g., ~/rdf-config/):
 
 ```
-% git clone https://github.com/dbcls/rdf-config.git
-% cd rdf-config
-% bundle install
+git clone https://github.com/dbcls/rdf-config.git
+cd rdf-config
+bundle install
 ```
 
-## Download Dataset
+## Download GDSC Dataset
 
-Download data from the following web site.
+Datasets can be downloaded from the following website:
 
 [Genomics of Drug Sensitivity in Cancer](https://www.cancerrxgene.org/downloads/bulk_download)
 
 ![gdsc_DL.png](./doc/figure/gdsc_DL.png)
 
-Note: This command assumes you are in the rdf-config/ directory.
+⚠️Save all `.tsv` files into: rdf-config/config/gdsc.
 
 ```
-% python3 ./config/gdsc/scripts/gdsc_download_convert.py
-
+python3 ./config/gdsc/scripts/gdsc_download_convert.py
 ```
 
 Check raw files and tsv files in directory.
@@ -60,55 +69,43 @@ Check raw files and tsv files in directory.
             └── gdsc_download_convert.py
 ```
 
-## Conversion to RDF/JSON-LD
+## Convert to RDF / JSON-LD
 
-### Data Set for Conversion
+### Required Config Files
 
-- convert.yaml
-- model.yaml
-- prefix.yaml
-- endpoint.yaml
-- schema.yaml
-- sparql.yaml
-- stanza.yaml
+Ensure the following files exist in config/gdsc/:
+* convert.yaml
+* model.yaml
+* prefix.yaml
+* endpoint.yaml
+* schema.yaml
+* sparql.yaml
+* stanza.yaml
 
-### Edit Configuration (convert.yaml)
+### RDF/JSON-LD Conversion Commands
 
-Define rules (procedures) for generating RDF and JSON-LD from CSV and TSV files, and describe them in YAML format.
+💡 Note: Run from the root directory of rdf-config.
 
-Tips
-- The top-level key (e.g., Gdsc) should be defined as a list item by adding a '-'.
-- Indentation should be done with exactly 2 half-width spaces.
-- Include - subject and - objects.
-- Confirm the path for - source. 
-
-![convert.yaml](./doc/figure/convert.yaml.png)
-
-### Command Syntax
-
-To generate RDF or JSON-LD from CSV, XML, or JSON files, run rdf-config with the --convert option.
-
+Convert TSV to Turtle:
 ```
-% rdf-config --config [directory of the configuration file] --convert [--format output format]
+bundle exec rdf-config --config config/gdsc --convert --format turtle > config/gdsc/output.ttl
 ```
 
-Examples:
-
-To convert TSV into Turtle format, run the following command:
-```
-% bundle exec rdf-config --config config/gdsc --convert --format turtle > config/gdsc/output.ttl
-```
-
-To convert TSV into JSON-LD format, run the following command:
+Convert TSV to JSON-LD:
 
 ```
-% bundle exec rdf-config --config config/gdsc --convert --format json-ld > config/gdsc/output.json
+bundle exec rdf-config --config config/gdsc --convert --format json-ld > config/gdsc/output.json
 ```
 
-### Generate Schema Diagram (ASCII)
+## Visualize the Schema
+
+### Generate ASCII Schema Diagram
 
 ```
-% bundle exec rdf-config --config config/gdsc --senbero
+bundle exec rdf-config --config config/gdsc --senbero
+```
+
+```
 Gdsc [gdsc:Gdsc] (gdsc:1)
     |-- gdsc:dataset
     |       `-- dataset ("GDSC1")
@@ -116,38 +113,7 @@ Gdsc [gdsc:Gdsc] (gdsc:1)
     |       `-- nlme_result_id (342)
     |-- gdsc:nlme_curve_id
     |       `-- nlme_curve_id (gdsc:15580432)
-    |-- gdsc:cosmic_id
-    |       `-- cosmic_id (gdscc:1240128)
-    |-- gdsc:cell_line_name
-    |       `-- cell_line_name ("ES5")
-    |-- gdsc:sanger_model_id
-    |       `-- sanger_model_id (gdscm:SIDM00263)
-    |-- gdsc:tcga_desc
-    |       `-- tcga_desc (tcgap:TCGA_xxxx)
-    |-- gdsc:drug_id
-    |       `-- drug_id (gdscd:1001)
-    |-- gdsc:drug_name
-    |       `-- drug_name ("Erlotinib")
-    |-- gdsc:putative_target
-    |       `-- putative_target ("EGFR")
-    |-- gdsc:pathway_name
-    |       `-- pathway_name ("EGFR signaling")
-    |-- gdsc:company_id
-    |       `-- company_id (1045)
-    |-- gdsc:webrelease
-    |       `-- webrelease ("Y")
-    |-- gdsc:min_conc
-    |       `-- min_conc (0.007813)
-    |-- gdsc:max_conc
-    |       `-- max_conc (0.1024)
-    |-- gdsc:ln_ic50
-    |       `-- ln_ic50 (-10.577744)
-    |-- gdsc:auc
-    |       `-- auc (0.985678)
-    |-- gdsc:rmse
-    |       `-- rmse (0.026081)
-    `-- gdsc:z_score
-            `-- z_score (-10.069813)
+    |-- ...
 GdscDrug [gdscd:GdscDrug] (gdscd:1)
     |-- gdscd:drug_drug_id
     |       `-- drug_drug_id (gdscd:1001)
@@ -155,24 +121,34 @@ GdscDrug [gdscd:GdscDrug] (gdscd:1)
     |       `-- drug_screening_site ("MGH")
     |-- gdscd:drug_drug_name
     |       `-- drug_drug_name ("Erlotinib")
-    |-- gdscd:drug_synonyms
-    |       `-- drug_synonyms ("Tarceva")
-    |-- gdscd:drug_target
-    |       `-- drug_target ("RG-1415")
-    `-- gdscd:drug_target_pathway
-            `-- drug_target_pathway ("CP-358774")
-GdscCellLine [gdscc:GdscCellLine] (gdscc:1)
-    |-- gdscc:cell_sample_name
-    |       `-- cell_sample_name ("A253")
-    |-- gdscc:cell_cosmic_identifier
-    ...
-(Some entries omitted for brevity)
+    |-- ...
 
 ```
 
-### Generate Schema Diagram
+### Generate SVG schema diagram
 
 ```
-% bundle exec rdf-config --config config/gdsc --schema > gdsc.svg
+bundle exec rdf-config --config config/gdsc --schema > gdsc.svg
 ```
-[gdsc schema](./doc/figure/gdsc.svg)
+
+📍Output:[gdsc.svg](./doc/figure/gdsc.svg)
+
+### Tips for Writing convert.yaml
+
+- Always use a hyphen `-` before **top-level** entities (e.g., `- TcgaFiles:`)
+- Use 2 spaces (not tabs) for indentation
+- Define - subject: and - objects: under each entity
+- Ensure source: matches the TSV file field name
+
+![convert.yaml](./doc/figure/convert.yaml.png)
+
+Script for Creating Small Test Data
+
+
+This script generates a small sample dataset for testing RDF conversion workflows. You can customize the content and structure as needed.
+
+💡 Run the following commands in your working directory (e.g., ~/rdf-config/):
+
+```
+python3 ./config/gdsc/scripts/gdscgdsc_small_extract_rows_from_tsv.py
+```
