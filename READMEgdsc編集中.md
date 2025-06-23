@@ -45,6 +45,10 @@ Datasets can be downloaded from the following website:
 
 ⚠️Save all `.tsv` files into: rdf-config/config/gdsc.
 
+### Automatic Download 
+
+You can automatically download GDSC data using the following script:
+
 ```
 python3 ./config/gdsc/scripts/gdsc_download_convert.py
 ```
@@ -142,10 +146,9 @@ bundle exec rdf-config --config config/gdsc --schema > gdsc.svg
 
 ![convert.yaml](./doc/figure/convert.yaml.png)
 
-Script for Creating Small Test Data
+### Script for Creating Small Test Data
 
-
-This script generates a small sample dataset for testing RDF conversion workflows. You can customize the content and structure as needed.
+This command generates a small sample dataset for testing RDF conversion workflows. 
 
 💡 Run the following commands in your working directory (e.g., ~/rdf-config/):
 
